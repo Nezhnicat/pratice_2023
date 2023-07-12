@@ -1,62 +1,62 @@
-CREATE TABLE "Music-project".City (
-	CityId int  NOT NULL,
-	City char(25) NOT NULL,
-	CONSTRAINT City_pk PRIMARY KEY (CityId)
+create  table  "Music-project".City (
+	CityId  int  ,
+	City char(25),
+	constraint  City_pk primary  key  (CityId)
 );
 
-CREATE TABLE "Music-project".Artist (
-	ArtistId int NOT NULL,
-	Artist char(40) NOT NULL,
-	CONSTRAINT Artist_pk PRIMARY KEY (ArtistId)
+create  table   "Music-project".Artist (
+	ArtistId int,
+	Artist char(40),
+	constraint  Artist_pk primary  key  (ArtistId)
 );
 
-CREATE TABLE "Music-project".Weekday (
-	WeekdayId int NOT NULL,
-	Weekday char(10) NOT NULL,
-	CONSTRAINT Weekday_pk PRIMARY KEY (WeekdayId)
+create  table  "Music-project".Weekday (
+	WeekdayId int ,
+	Weekday char(10),
+	constraint  Weekday_pk primary  key  (WeekdayId)
 );
 
-CREATE TABLE "Music-project".Genre (
-	GenreId int NOT NULL,
-	Genre char(30) NOT NULL,
-	CONSTRAINT Genre_pk PRIMARY KEY (GenreId)
+create  table   "Music-project".Genre (
+	GenreId int ,
+	Genre char(30),
+	constraint  Genre_pk primary  key  (GenreId)
 );
 
-CREATE TABLE "Music-project".track (
-	genreid int NOT NULL,
-	trackid int NOT NULL,
-	track char(35) NOT NULL,
-	CONSTRAINT track_pk PRIMARY KEY (trackid),
-	CONSTRAINT track_fk FOREIGN KEY (genreid) REFERENCES "Music-project".genre(genreid)
+create  table  "Music-project".track (
+	genreid int ,
+	trackid int ,
+	track char(35),
+	constraint  track_pk primary  key  (trackid),
+	constraint  track_fk foreign  key  (genreid) references  "Music-project".genre(genreid)
 );
 
-CREATE TABLE "Music-project".users(
-  CityId int  NOT NULL,
-  UserId char(10)  NOT NULL,
-  CONSTRAINT users_pk PRIMARY KEY (UserId),
-  CONSTRAINT usesr_fk FOREIGN KEY (CityId) REFERENCES "Music-project".city(CityId)
+create  table  "Music-project".users(
+  CityId int  ,
+  UserId char(10) ,
+  constraint  users_pk primary  key  (UserId),
+  constraint  usesr_fk foreign  key  (CityId) references  "Music-project".city(CityId)
   );
  
- CREATE TABLE "Music-project".performances
+ create  table "Music-project".performances
 (
    id serial primary key,
-   trackid int not null,
-   artistid int not null,
-   CONSTRAINT performances_fk FOREIGN KEY (trackid) REFERENCES "Music-project".track(trackid),
-   CONSTRAINT performances_fk_1 FOREIGN KEY (artistid) REFERENCES "Music-project".artist(artistid));
+   trackid int ,
+   artistid int ,
+   constraint  performances_fk foreign  key  (trackid) references  "Music-project".track(trackid),
+   constraint  performances_fk_1 foreign  key  (artistid) REFERENCES "Music-project".artist(artistid));
 
   create table "Music-project".listenings(
   id serial primary key,
-  userid char(10)not null,
-  trackid int not null,
-  artistid int not null,
-  weekdayid int not null,
-  time float not null,
-  report_date date not null,
-  CONSTRAINT listenings_fk FOREIGN KEY (id) REFERENCES "Music-project".performances(id),
-  CONSTRAINT listenings_fk_1 FOREIGN KEY ( userid ) REFERENCES "Music-project".users( userid ),
-  CONSTRAINT listenings_fk_2 FOREIGN KEY (trackid) REFERENCES "Music-project".track(trackid),
-  CONSTRAINT listenings_fk_3 FOREIGN KEY (artistid) REFERENCES "Music-project".artist(artistid),
-  CONSTRAINT listenings_fk_4 FOREIGN KEY (weekdayid) REFERENCES "Music-project".weekday(weekdayid)
+  userid char(10),
+  trackid int ,
+  artistid int ,
+  weekdayid int ,
+  time float ,
+  report_date date ,
+  constraint  listenings_fk foreign  key  (id) references  "Music-project".performances(id),
+  constraint  listenings_fk_1 foreign  key  ( userid ) references  "Music-project".users( userid ),
+  constraint  listenings_fk_2 foreign  key  (trackid) references  "Music-project".track(trackid),
+  constraint  listenings_fk_3 foreign  key  (artistid) references  "Music-project".artist(artistid),
+  constraint  listenings_fk_4 foreign  key  (weekdayid) references "Music-project".weekday(weekdayid)
   
   );
